@@ -4,6 +4,8 @@
 ##### Set up wildcards #####
 configfile: "./config/config.yaml"
 # Define samples from fastq dir and families/cohorts from pedigree dir using wildcards
+
+FAMILIES, = glob_wildcards("../pedigrees/{family}_pedigree.ped")
 SAMPLES, = glob_wildcards("../test/{sample}_R1.fastq.gz") # to adapt
 
 
@@ -25,9 +27,58 @@ def get_input_fastq(command):
 
     return input_files
 
-cf = "aligned_reads/{sample}_raw_snps_indels.vcf"   # il va le rreee seul 
-params = ""
 
+
+
+
+
+
+def get_output_vcf(config):
+    """Return a string which defines the output vcf files for the pbrun_germline rule. This changes based on the
+    user configurable options for running single samples or cohorts of samples
+    """
+    
+    vcf = ""
+
+    if config['DATA'] == "Single" or config['DATA'] == 'single':
+        vcf = "aligned_reads/{sample}_raw_snps_indels.vcf"
+    if config['DATA'] == "Cohort" or config['DATA'] == 'cohort':
+        vcf = "aligned_reads/{sample}_raw_snps_indels_tmp.g.vcf"
+
+    return vcf
+
+def get_params(command):
+    """Return a string which defines some parameters for the pbrun_germline rule. This changes based on the
+    user configurable options for running single samples or cohorts of samples
+    """
+    
+    params = ""
+
+    if config['DATA'] == "Single" or config['DATA'] == 'single':
+        params = ""
+    if config['DATA'] == "Cohort" or config['DATA'] == 'cohort':
+        params = "--gvcf"
+
+    return params
+
+def get_gatk_combinegvcf_command(family):
+    """Return a string, a portion of the gatk CombineGVCF command which defines individuals which should be combined. This
+    command is used by the gatk_CombineGVCFs rule. For a particular family, we construct the gatk command by adding
+    -V <individual vcf file> for each individual (defined by individual id column in the pedigree file)
+    """
+    filename = "../pedigrees/" + str(family) + "_pedigree.ped"
+    
+    command = ""
+    with open(filename, newline = '') as pedigree:
+
+        pedigree_reader = csv.DictReader(pedigree, fieldnames = ('family', 'individual_id', 'paternal_id', 'maternal_id', 'sex', 'phenotype'), delimiter='\t')
+        for individual in pedigree_reader:
+            command += "-V aligned_reads/" + individual['individual_id'] + "_raw_snps_indels_tmp.g.vcf"
+
+    return command
+    ########################################################################################
+
+##########################################################
  
 
 def get_recal_resources_command(resource):
@@ -94,7 +145,7 @@ if config['DATA'] == "Single" or config['DATA'] == 'single':
 if config['DATA'] == "Cohort" or config['DATA'] == 'cohort':
     rule all:
         input:
-            "aligned_reads/multiqc_report.html",
+            "./aligned_reads/multiqc_report.html",
             expand("./aligned_reads/{sample}_recalibrated.bam", sample = SAMPLES),
             expand("./aligned_reads/{family}_raw_snps_indels.vcf", family = FAMILIES)
 

@@ -6,7 +6,7 @@
 # #To check available number of threads
 #cat /proc/cpuinfo | grep processor | wc -l
 # Type of input data (either 'Single' or 'Cohort')
-DATA: "Single"
+DATA: "Cohort"
 # File path to the reference genome (.fasta)
 REFGENOME: "../references/Homo_sapiens_assembly38.fasta"
 
