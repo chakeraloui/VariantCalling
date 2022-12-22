@@ -1,10 +1,10 @@
 rule gatk_HaplotypeCaller_single:
     input:
-        bams = "./aligned_reads/{sample}_recalibrated.bam",
+        bams = "aligned_reads/{sample}_recalibrated.bam",
         refgenome = expand("{refgenome}", refgenome = config['REFGENOME']),
         dbsnp = expand("{dbsnp}", dbsnp = config['dbSNP'])
     output:
-        protected("./aligned_reads/{sample}_raw_snps_indels.vcf")
+        protected("aligned_reads/{sample}_raw_snps_indels.vcf")
     params:
         maxmemory = expand('"-Xmx{maxmemory}"', maxmemory = config['MAXMEMORY']),
         threads = expand('"-XX:ParallelGCThreads={threads}"', threads = config['THREADS']),

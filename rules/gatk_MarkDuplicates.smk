@@ -1,9 +1,9 @@
 rule gatk_MarkDuplicates:
     input:
-        bams = "./aligned_reads/{sample}_sorted.bam"
+        bams = "aligned_reads/{sample}_sorted.bam"
     output:
         bam = temp("aligned_reads/{sample}_sorted_mkdups.bam"),
-        metrics = "./aligned_reads/{sample}_sorted_mkdups_metrics.txt"
+        metrics = "aligned_reads/{sample}_sorted_mkdups_metrics.txt"
     params:
         maxmemory = expand('"-Xmx{maxmemory}"', maxmemory = config['MAXMEMORY']),
         tdir = config['TEMPDIR']

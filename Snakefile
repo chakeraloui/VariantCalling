@@ -76,7 +76,7 @@ def get_gatk_combinegvcf_command(family):
             command += "-V aligned_reads/" + individual['individual_id'] + "_raw_snps_indels_tmp.g.vcf"
 
     return command
-   
+ 
  
 
 def get_recal_resources_command(resource):
@@ -135,17 +135,17 @@ report: "report/workflow.rst"
 if config['DATA'] == "Single" or config['DATA'] == 'single':
     rule all:
         input:
-            "./aligned_reads/multiqc_report.html",
-            expand("./aligned_reads/{sample}_recalibrated.bam", sample = SAMPLES),
-            expand("./aligned_reads/{sample}_raw_snps_indels.vcf", sample = SAMPLES),
+            "aligned_reads/multiqc_report.html",
+            expand("aligned_reads/{sample}_recalibrated.bam", sample = SAMPLES),
+            expand("aligned_reads/{sample}_raw_snps_indels.vcf", sample = SAMPLES),
             
 
 if config['DATA'] == "Cohort" or config['DATA'] == 'cohort':
     rule all:
         input:
-            "./aligned_reads/multiqc_report.html",
-            expand("./aligned_reads/{sample}_recalibrated.bam", sample = SAMPLES),
-            expand("./aligned_reads/{family}_raw_snps_indels.vcf", family = FAMILIES)
+            "aligned_reads/multiqc_report.html",
+            expand("aligned_reads/{sample}_recalibrated.bam", sample = SAMPLES),
+            expand("aligned_reads/{family}_raw_snps_indels.vcf", family = FAMILIES)
 
 ##### Load rules #####
 #localrules: multiqc

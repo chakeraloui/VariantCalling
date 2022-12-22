@@ -1,6 +1,6 @@
 rule gatk_HaplotypeCaller_cohort:
     input:
-        bams = "./aligned_reads/{sample}_recalibrated.bam",##
+        bams = "aligned_reads/{sample}_recalibrated.bam",
         refgenome = expand("{refgenome}", refgenome = config['REFGENOME']),
         dbsnp = expand("{dbsnp}", dbsnp = config['dbSNP'])
     output:

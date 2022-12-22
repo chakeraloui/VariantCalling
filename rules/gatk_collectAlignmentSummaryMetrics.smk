@@ -1,8 +1,8 @@
 rule gatk_CollectAlignmentSummaryMetrics:
     input:
-        "../results/mapped/{sample}_recalibrated.bam"
+        "aligned_reads/{sample}_recalibrated.bam"
     output:
-        metrics ="../results/aligned_reads/{sample}_alignment_metrics.txt"
+        metrics ="aligned_reads/{sample}_alignment_metrics.txt"
     params:
         maxmemory = expand('"-Xmx{maxmemory}"', maxmemory = config['MAXMEMORY']),
         tdir = config['TEMPDIR']

@@ -4,7 +4,7 @@ rule gatk_ApplyBQSR:
         recal = "aligned_reads/{sample}_recalibration_report.grp",
         refgenome = expand("{refgenome}", refgenome = config['REFGENOME'])
     output:
-        bam = protected("./aligned_reads/{sample}_recalibrated.bam")
+        bam = protected("aligned_reads/{sample}_recalibrated.bam")
     params:
         maxmemory = expand('"-Xmx{maxmemory}"', maxmemory = config['MAXMEMORY']),
         threads= expand('"-XX:ParallelGCThreads={threads}"', threads = config['THREADS']),
