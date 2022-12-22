@@ -76,9 +76,7 @@ def get_gatk_combinegvcf_command(family):
             command += "-V aligned_reads/" + individual['individual_id'] + "_raw_snps_indels_tmp.g.vcf"
 
     return command
-    ########################################################################################
-
-##########################################################
+   
  
 
 def get_recal_resources_command(resource):

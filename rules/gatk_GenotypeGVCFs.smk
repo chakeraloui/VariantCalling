@@ -1,6 +1,6 @@
 rule gatk_GenotypeGVCFs:
     input:
-        gvcf = "./aligned_reads/{family}_raw_snps_indels_tmp_combined.g.vcf",
+        gvcf = "./aligned_reads/{family}_raw_snps_indels_tmp_combined.g.vcf",##
         refgenome = expand("{refgenome}", refgenome = config['REFGENOME'])
     output:
         protected("./aligned_reads/{family}_raw_snps_indels.vcf")

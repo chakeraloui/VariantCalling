@@ -27,7 +27,7 @@ WES:
 
 # Number of threads to use per rule/sample for multithreaded rules, multithreading will significantly speed up these rules (diminishing speed gains beyond 8 threads)
 THREADS: 4
-
+#####
 # Maximum memory usage per rule/sample (eg. '40g' for 40 gigabytes, this should suffice for exomes)
 MAXMEMORY: "4g"
 GPU_ACCELERATED: "No"
