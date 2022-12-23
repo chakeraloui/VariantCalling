@@ -105,7 +105,7 @@ def get_wes_intervals_command(resource):
     if config['WES']['INTERVALS'] == "":
         command = ""
     
-    command = "--L " + config['WES']['PADDING'] + " "
+    command = "--L " + config['WES']['INTERVALS'] + " "
     
 
     return command
