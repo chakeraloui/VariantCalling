@@ -73,7 +73,7 @@ def get_gatk_combinegvcf_command(family):
 
         pedigree_reader = csv.DictReader(pedigree, fieldnames = ('family', 'individual_id', 'paternal_id', 'maternal_id', 'sex', 'phenotype'), delimiter='\t')
         for individual in pedigree_reader:
-            command += "-V aligned_reads/" + individual['individual_id'] + "_raw_snps_indels_tmp.g.vcf"
+            command += " -V aligned_reads/" + individual['individual_id'] + "_raw_snps_indels_tmp.g.vcf"
 
     return command
  
