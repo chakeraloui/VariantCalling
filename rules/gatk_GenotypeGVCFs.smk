@@ -9,7 +9,7 @@ rule gatk_GenotypeGVCFs:
         tdir = config['TEMPDIR'],
         padding = get_wes_padding_command,
         intervals = get_wes_intervals_command,
-        other = "-G StandardAnnotation -G AS_StandardAnnotation"
+        other = "-G StandardAnnotation -G AS_StandardAnnotation --allow-old-rms-mapping-quality-annotation-data  --merge-input-intervals"
     log:
         "logs/gatk_GenotypeGVCFs/{family}.log"
     benchmark:

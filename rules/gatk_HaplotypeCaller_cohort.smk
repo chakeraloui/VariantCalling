@@ -11,7 +11,7 @@ rule gatk_HaplotypeCaller_cohort:
         tdir = config['TEMPDIR'],
         padding = get_wes_padding_command,
         intervals = get_wes_intervals_command,
-        other = "-ERC GVCF"
+        other = "-ERC GVCF  -contamination 0   -G StandardAnnotation -G StandardHCAnnotation  -new-qual -GQB 10 -GQB 20 -GQB 30 -GQB 40 -GQB 50 -GQB 60 -GQB 70 -GQB 80 -GQB 90 "
     log:
         "logs/gatk_HaplotypeCaller_cohort/{sample}.log"
     benchmark:

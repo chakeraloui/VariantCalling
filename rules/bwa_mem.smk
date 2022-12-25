@@ -20,5 +20,4 @@ rule bwa_mem:
     message:
         "Mapping sequences against a reference human genome with BWA-MEM for {input.fastq}"
     shell:
-         "bwa mem -M -t {threads} -K 10000000 -R {params.readgroup} {input.refgenome} {input.fastq} | gatk SortSam --java-options {params.maxmemory} {params.sortsam} -O {output} --TMP_DIR {params.tdir}  &> {log}"
-       
+         "bwa mem -M -t {threads} -K 10000000 -R {params.readgroup} {input.refgenome} {input.fastq} | gatk SortSamSpark  {params.sortsam} -O {output} --conf spark.local.dir=tdir --spark-runner LOCAL --spark-master 'local[10]'   --conf spark.driver.extraJavaOptions=-Xss2m --conf spark.executor.extraJavaOptions=-Xss2m --conf 'spark.kryo.referenceTracking=false' &> {log}"

@@ -1,0 +1,3 @@
+SyntaxError in line 10 of /home/aloui/chaker/VariantCalling/rules/gatk_MarkDuplicates.smk:
+invalid syntax
+  File "/home/aloui/chaker/VariantCalling/Snakefile", line 165, in <module>

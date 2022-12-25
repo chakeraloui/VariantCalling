@@ -20,4 +20,4 @@ rule gatk_BaseRecalibrator:
     message:
         "Generating a recalibration table for {input.bams}"
     shell:
-        "gatk  BaseRecalibrator  --java-options {params.maxmemory}  --tmp-dir {params.tdir}    -I {input.bams}  -R {input.refgenome}   {params.padding}  {params.recalibration_resources}  -O {output} &> {log}"
+        "gatk  BaseRecalibrator  --java-options {params.maxmemory}  --tmp-dir {params.tdir}    -I {input.bams}  -R {input.refgenome}   {params.padding}  {params.recalibration_resources}  -O {output} --use-original-qualities &> {log}"
