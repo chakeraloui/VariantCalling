@@ -136,7 +136,7 @@ if config['DATA'] == "Single" or config['DATA'] == 'single':
     rule all:
         input:
             "aligned_reads/multiqc_report.html",
-            expand("aligned_reads/{sample}mkdups_sorted_recalibrated.bam", sample = SAMPLES),
+            expand("aligned_reads/{sample}_mkdups_sorted_recalibrated.bam", sample = SAMPLES),
             expand("aligned_reads/{sample}_raw_snps_indels.vcf.gz", sample = SAMPLES),
             
 

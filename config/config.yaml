@@ -6,18 +6,18 @@
 # #To check available number of threads
 #cat /proc/cpuinfo | grep processor | wc -l
 # Type of input data (either 'Single' or 'Cohort')
-DATA: "Cohort"
+DATA: "Single"
 # File path to the reference genome (.fasta)
-REFGENOME: "../references/hg38.fa"
+REFGENOME: "../references/Homo_sapiens_assembly38.fasta"
 
 # File path to dbSNP database
-dbSNP: "../references/hg38_v0_Homo_sapiens_assembly38.dbsnp138.vcf.gz"
+dbSNP: "../references/Homo_sapiens_assembly38.dbsnp138.vcf"
 TEMPDIR: "tmpd"
 
 # Whole exome sequence settings (leave blank if analysing other data such as whole genome sequence data)
 WES:
  # File path to the exome capture regions over which to operate
-  INTERVALS: "../references/SureSelect_V5UTR_extended_25pb.bed"   # bedfile kit
+  INTERVALS: "../references/S31285117_Regions.bed"   # bedfile kit
   # Padding (in bp) to add to each region
   PADDING: "100"
 
@@ -26,10 +26,10 @@ WES:
 ##############################
 
 # Number of threads to use per rule/sample for multithreaded rules, multithreading will significantly speed up these rules (diminishing speed gains beyond 8 threads)
-THREADS: 10
+THREADS: 4
 
 # Maximum memory usage per rule/sample (eg. '40g' for 40 gigabytes, this should suffice for exomes)
-MAXMEMORY: "20g"
+MAXMEMORY: "6g"
 GPU_ACCELERATED: "No"
 # Maximum number of GPU's to be used per rule/sample for gpu-accelerated runs (eg `1` for 1 GPU)
 GPU:
@@ -54,9 +54,9 @@ TRIMMING:
 # List of resources to used for base recalibration
 RECALIBRATION:
   RESOURCES:
-    - ../references/hg38_v0_Homo_sapiens_assembly38.dbsnp138.vcf.gz
-    - ../references/hg38_v0_Mills_and_1000G_gold_standard.indels.hg38.vcf.gz
-    - ../references/hg38_v0_1000G_phase1.snps.high_confidence.hg38.vcf.gz
+    - ../references/Homo_sapiens_assembly38.dbsnp138.vcf.gz
+    - ../references/Mills_and_1000G_gold_standard.indels.hg38.vcf.gz
+    - ../references/1000G_phase1.snps.high_confidence.hg38.vcf.gz
 
 # choose to applies VQSR to callsets (either 'Yes' or 'No')
 VQSR: "No"

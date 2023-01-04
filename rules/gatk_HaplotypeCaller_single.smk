@@ -1,10 +1,10 @@
 rule gatk_HaplotypeCaller_single:
     input:
-        bams = "aligned_reads/{sample}_recalibrated.bam",
+        bams = "aligned_reads/{sample}_sorted_mkdups.bam",
         refgenome = expand("{refgenome}", refgenome = config['REFGENOME']),
         dbsnp = expand("{dbsnp}", dbsnp = config['dbSNP'])
     output:
-        protected("aligned_reads/{sample}_raw_snps_indels.vcf")
+        protected("aligned_reads/{sample}_raw_snps_indels.vcf.gz")
     params:
         maxmemory = expand('"-Xmx{maxmemory}"', maxmemory = config['MAXMEMORY']),
         threads = expand('"-XX:ParallelGCThreads={threads}"', threads = config['THREADS']),
@@ -25,4 +25,5 @@ rule gatk_HaplotypeCaller_single:
         -R {input.refgenome} \
         -D {input.dbsnp} \
         -O {output} \
-        --tmp-dir {params.tdir} {params.padding}  {params.intervals} -ERC GVCF -G Standard -G AS_Standard -G StandardHCAnnotation  &> {log}"
+        --tmp-dir {params.tdir} {params.padding}  {params.intervals} \
+        -ERC GVCF -G Standard -G AS_Standard -G StandardHCAnnotation  &> {log}"""
