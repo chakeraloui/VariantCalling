@@ -4,12 +4,14 @@ rule gatk_ApplyBQSR:
         recal = "aligned_reads/{sample}_recalibration_report.grp",
         refgenome = expand("{refgenome}", refgenome = config['REFGENOME'])
     output:
-        bam = protected("aligned_reads/{sample}_recalibrated.bam")
+        bam = protected("aligned_reads/{sample}_mkdups_sorted_recalibrated.bam")
     params:
         maxmemory = expand('"-Xmx{maxmemory}"', maxmemory = config['MAXMEMORY']),
         threads= expand('"-XX:ParallelGCThreads={threads}"', threads = config['THREADS']),
         padding = get_wes_padding_command,
         intervals = get_wes_intervals_command,
+        out="aligned_reads",
+        bam_prefix="{sample}_MultipleMetrics",
         others= " --create-output-bam-md5 --add-output-sam-program-record --static-quantized-quals 10 --static-quantized-quals 20 --static-quantized-quals 30 --static-quantized-quals 40 --static-quantized-quals 50"
     log:
         "logs/gatk_ApplyBQSR/{sample}.log"
@@ -20,4 +22,4 @@ rule gatk_ApplyBQSR:
     message:
         "Applying base quality score recalibration and producing a recalibrated BAM file for {input.bam}"
     shell:
-        "gatk ApplyBQSR --java-options {params.maxmemory}  -I {input.bam} -bqsr {input.recal} {params.others} -R {input.refgenome} {params.padding} -O {output}   &> {log}"
+        """gatk ApplyBQSR --java-options {params.maxmemory}  -I {input.bam} -bqsr {input.recal} {params.others} -R {input.refgenome} {params.padding} -O {output} &>{log}"""

@@ -20,4 +20,9 @@ rule gatk_HaplotypeCaller_single:
     message:
         "Calling germline SNPs and indels via local re-assembly of haplotypes for {input.bams}"
     shell:
-        "gatk HaplotypeCaller --java-options {params.maxmemory}  -I {input.bams} -R {input.refgenome} -D {input.dbsnp} -O {output} --tmp-dir {params.tdir} {params.padding}  {params.intervals} &> {log}"
+        """gatk HaplotypeCaller --java-options {params.maxmemory}  \
+        -I {input.bams} \
+        -R {input.refgenome} \
+        -D {input.dbsnp} \
+        -O {output} \
+        --tmp-dir {params.tdir} {params.padding}  {params.intervals} -ERC GVCF -G Standard -G AS_Standard -G StandardHCAnnotation  &> {log}"

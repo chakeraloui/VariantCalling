@@ -136,21 +136,23 @@ if config['DATA'] == "Single" or config['DATA'] == 'single':
     rule all:
         input:
             "aligned_reads/multiqc_report.html",
-            expand("aligned_reads/{sample}_recalibrated.bam", sample = SAMPLES),
-            expand("aligned_reads/{sample}_raw_snps_indels.vcf", sample = SAMPLES),
+            expand("aligned_reads/{sample}mkdups_sorted_recalibrated.bam", sample = SAMPLES),
+            expand("aligned_reads/{sample}_raw_snps_indels.vcf.gz", sample = SAMPLES),
             
 
 if config['DATA'] == "Cohort" or config['DATA'] == 'cohort':
     rule all:
         input:
             "aligned_reads/multiqc_report.html",
-            expand("aligned_reads/{sample}_recalibrated.bam", sample = SAMPLES),
-            expand("aligned_reads/{family}_raw_snps_indels.vcf", family = FAMILIES)
+            expand("aligned_reads/{sample}_mkdups_sorted_recalibrated.bam", sample = SAMPLES),
+            expand("aligned_reads/{family}_raw_snps_indels.vcf.gz", family = FAMILIES)
 
 ##### Load rules #####
 #localrules: multiqc
 
 
+#include: "rules/gatk_FastqToSam.smk"
+#include: "rules/gatk_SamToFastq.smk"
 include: "rules/fastqc.smk"
 
 if config['TRIM'] == "No" or config['TRIM'] == "no":
