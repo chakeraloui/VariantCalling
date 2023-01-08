@@ -22,4 +22,13 @@ rule bwa_mem:
     message:
         "Mapping sequences against a reference human genome with BWA-MEM for {input.fastq}"
     shell:
-         """bwa mem -M -t {threads} -K 10000000 -R {params.readgroup} {input.refgenome} {input.fastq} | gatk SortSam --java-options {params.maxmemory} {params.sortsam} O={output} TMP_DIR={params.tdir} &> {log}"""
+         """bwa mem \
+         -M -t {threads} \
+         -K 10000000 \
+         -R {params.readgroup} {input.refgenome} \
+         {input.fastq} 2> {log}.bwamem \
+         | \
+         gatk SortSam --java-options {params.maxmemory} \
+         {params.sortsam} \
+         O={output} \
+         TMP_DIR={params.tdir} &> {log}.sortsam"""

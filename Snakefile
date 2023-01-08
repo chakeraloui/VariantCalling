@@ -2,7 +2,7 @@
 
 
 ##### Set up wildcards #####
-configfile: "./config/config.yaml"
+configfile: "config/config.yaml"
 # Define samples from fastq dir and families/cohorts from pedigree dir using wildcards
 
 FAMILIES, = glob_wildcards("../pedigrees/{family}_pedigree.ped")
